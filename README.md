@@ -1,59 +1,130 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+# Lab Exam - Quero
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+**Full Name:** Jonathan Quero
 
-## About Laravel
+## Project Description
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+This project is a Laravel-based Student Management System developed as part of a practical examination. It manages student records and courses and demonstrates authentication, authorization, database relationships, and API authentication using Laravel Sanctum.
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+## Technologies Used
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+- PHP 8.2
+- Laravel 12
+- MySQL
+- Laravel Sanctum
+- Composer
+- Git and GitHub
 
-## Learning Laravel
+## Prerequisites
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework. You can also check out [Laravel Learn](https://laravel.com/learn), where you will be guided through building a modern Laravel application.
+Install the following before running the project:
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+- XAMPP with MySQL
+- PHP 8.2 or a compatible version
+- Composer
+- Git
+- Visual Studio Code
 
-## Laravel Sponsors
+## Installation and Setup
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the [Laravel Partners program](https://partners.laravel.com).
+### 1. Clone the repository
 
-### Premium Partners
+```bash
+git clone https://github.com/JnathanQ/lab-exam-quero.git
+cd lab-exam-quero
+```
 
-- **[Vehikl](https://vehikl.com)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel)**
-- **[DevSquad](https://devsquad.com/hire-laravel-developers)**
-- **[Redberry](https://redberry.international/laravel-development)**
-- **[Active Logic](https://activelogic.com)**
+If the project is already on your computer, open its existing folder instead.
 
-## Contributing
+### 2. Install dependencies
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+```bash
+composer install
+```
 
-## Code of Conduct
+### 3. Configure the environment
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+Create a local environment file:
 
-## Security Vulnerabilities
+```bash
+copy .env.example .env
+```
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+Generate the application key:
 
-## License
+```bash
+php artisan key:generate
+```
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+### 4. Configure the database
+
+Create a MySQL database named `lab_exam_quero` using phpMyAdmin or MySQL.
+
+Update the database settings in your local `.env` file:
+
+```dotenv
+DB_CONNECTION=mysql
+DB_HOST=127.0.0.1
+DB_PORT=3306
+DB_DATABASE=lab_exam_quero
+DB_USERNAME=root
+DB_PASSWORD=
+```
+
+Adjust the username and password to match your local MySQL configuration.
+
+### 5. Run database migrations
+
+```bash
+php artisan migrate
+```
+
+### 6. Start the development server
+
+```bash
+php artisan serve
+```
+
+Open the application at:
+
+http://127.0.0.1:8000
+
+## API Authentication
+
+The project includes Laravel Sanctum token authentication.
+
+### Create an API token
+
+Send a POST request to:
+
+`http://127.0.0.1:8000/api/tokens/create`
+
+Provide the user's email and password in a JSON request body:
+
+```json
+{
+  "email": "admin@example.com",
+  "password": "YOUR_ACTUAL_PASSWORD"
+}
+```
+
+Replace the example credentials with valid local test-account credentials.
+
+A successful request returns a plain-text API token.
+
+### Retrieve students
+
+Send a GET request to:
+
+`http://127.0.0.1:8000/api/students`
+
+Include the token in the request header:
+
+```text
+Authorization: Bearer YOUR_API_TOKEN
+Accept: application/json
+```
+
+A valid token returns student records with their associated courses. A request without a valid token should return HTTP 401 Unauthorized when JSON is requested.
+
+## Security
