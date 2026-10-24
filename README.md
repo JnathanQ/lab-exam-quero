@@ -104,7 +104,7 @@ Provide the user's email and password in a JSON request body:
 ```json
 {
   "email": "admin@example.com",
-  "password": "YOUR_ACTUAL_PASSWORD"
+  "password": "Admin123!"
 }
 ```
 
